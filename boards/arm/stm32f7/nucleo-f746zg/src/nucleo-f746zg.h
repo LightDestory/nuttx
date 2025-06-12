@@ -307,6 +307,18 @@ int stm32_pwm_setup(void);
  *
  ****************************************************************************/
 
+/****************************************************************************
+ * Name: stm32_capture_setup
+ *
+ * Description:
+ *  Initialize pwm capture support
+ *
+ ****************************************************************************/
+
+#ifdef CONFIG_CAPTURE
+int stm32_capture_setup(const char *devpath);
+#endif
+
 #ifdef CONFIG_ADC
 int stm32_adc_setup(void);
 #endif

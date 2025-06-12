@@ -44,6 +44,10 @@
 #  include "stm32_can_setup.h"
 #endif
 
+#ifdef CONFIG_CAPTURE
+#  include "stm32_capture.h"
+#endif
+
 #ifdef CONFIG_STM32F7_CAN_SOCKET
 #  include "stm32_cansock_setup.h"
 #endif
@@ -186,6 +190,17 @@ int stm32_bringup(void)
     {
       syslog(LOG_ERR, "ERROR: stm32_pwm_setup() failed: %d\n", ret);
     }
+#endif
+
+#ifdef CONFIG_CAPTURE
+  /* Initialize Capture and register the Capture driver. */
+
+  ret = stm32_capture_setup("/dev/capture0");
+  if (ret < 0)
+  {
+    syslog(LOG_ERR, "ERROR: stm32_capture_setup failed: %d\n", ret);
+    return ret;
+  }
 #endif
 
 #ifdef CONFIG_SENSORS_QENCODER
